@@ -70,14 +70,13 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
             {
                 newWeights[server] = (0, serverWeights[server].maxWeight);
             }
-
             serverWeights = newWeights;
         }
     }    public class UDPRoom1Server    {        private int port = 1234;        private int sync1Port = 6061;        private int sync2Port = 6062;        private int sync3Port = 6063;        private Socket udp;        private IPAddress ip;        private Dictionary<EndPoint, Client> clients;
         private List<IPEndPoint> servers;   // connected sync server
         private LoadBalancer loadBalancer;
 
-        private const int group1Weight = 1;        private const int group2Weight = 3;        private const int group3Weight = 5;
+        private const int group1Weight = 1;        private const int group2Weight = 3;           private const int group3Weight = 5;
         private Dictionary<IPEndPoint, int> serverWeights;
 
         private List<int> originalServerWeights;    // weight of sync server -> immutable
@@ -86,9 +85,12 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
 
             servers = new List<IPEndPoint>
             {
+                //new IPEndPoint(IPAddress.Parse("112.153.144.131"), 6061),
+                //new IPEndPoint(IPAddress.Parse("112.153.144.131"), 6062),
+                new IPEndPoint(IPAddress.Parse("112.153.144.131"), 6063),
                 new IPEndPoint(ip, 6061),
                 new IPEndPoint(ip, 6062),
-                new IPEndPoint(IPAddress.Parse("112.153.144.131"), 6063),
+                //new IPEndPoint(ip, 6063),
                 //new IPEndPoint(ip, 6064),
                 //new IPEndPoint(ip, 6065),
 
@@ -96,17 +98,13 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
 
             serverWeights = new Dictionary<IPEndPoint, int>
             {
-                [servers[0]] = 2,
-                [servers[1]] = 4,
-                [servers[2]] = 5,
+                [servers[0]] = 100,
+                [servers[1]] = 50,
+                [servers[2]] = 10,
                 //[servers[3]] = 8,
                 //[servers[4]] = 5,
             };                       //loadBalancer = new LoadBalancer(servers, serverWeights);            originalServerWeights = new List<int>(serverWeights.Values);            //InitializeServerWeights();            BeginReceive();        }        public void Start()        {            IPEndPoint localEP = new IPEndPoint(IPAddress.Any, port);            udp.Bind(localEP);            Console.WriteLine("Room1 Server Start!");        }        private void InitializeServerWeights()
         {
-            //foreach (var server in servers)
-            //{
-            //    serverWeights[server] = 0;
-            //}
             serverWeights = new Dictionary<IPEndPoint, int>(originalServerWeights.Count);
             int index = 0;
 
@@ -121,7 +119,10 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
                 udp.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref clientEP, new AsyncCallback(OnReceive), buffer);
             }catch(Exception e) {
                 Console.WriteLine("Winsock error: " + e.ToString());
-            };        }        private void OnReceive(IAsyncResult ar)        {            byte[] buffer = (byte[])ar.AsyncState;            EndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);            int bytesRead = udp.EndReceiveFrom(ar, ref clientEP);            PacketDatagram packet = PacketSerializer.Deserializer(buffer) as PacketDatagram;            if (packet != null)            {
+            };        }        private void OnReceive(IAsyncResult ar)        {            byte[] buffer = (byte[])ar.AsyncState;            EndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);            int bytesRead = udp.EndReceiveFrom(ar, ref clientEP);            PacketDatagram packet = PacketSerializer.Deserializer(buffer) as PacketDatagram;
+
+            Console.WriteLine($"Room: Received packet from {packet.source}:{packet.portNum}");
+            if (packet != null)            {
                 //HandlePacket(ref packet, (IPEndPoint)clientEP); //Meta-seum
                 //HandlePacket_RR(ref packet, (IPEndPoint)clientEP);  //RoundRobin
                 HandlePacket_WRR(ref packet, (IPEndPoint)clientEP); //Weighted RoundRobin
@@ -198,19 +199,12 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
             pd.portNum = clientEP.Port;
             pd.source = clientEP.Address.ToString();
 
-            Console.WriteLine("Room-pd.source: {0}", pd.source);
             if (!clients.ContainsKey(clientEP))
             {
                 clients.Add(clientEP, new Client(pd.playerInfoPacket.id, pd));
             }
             if (pd.status.Equals("connected"))
             {
-                if (serverWeights.Count == 0)
-                {
-                    Console.WriteLine("No servers available");
-                    return;
-                }
-
                 int maxWeight = serverWeights.Values.Max();
                
                 while (true)
@@ -224,9 +218,13 @@ using StarterAssets.Packet;namespace Server{    public class LoadBalancer
                         SendPacket(ref pd, currentServer);
 
                         // 처리 가능 가중치 - group weight
-                        if (serverWeights[currentServer] - GetGroupWeight(ref pd) > 0)
+                        //if (serverWeights[currentServer] - GetGroupWeight(ref pd) > 0)
+                        //{
+                        //    serverWeights[currentServer] -= GetGroupWeight(ref pd);
+                        //}
+                        if (serverWeights[currentServer] - 1>= 0)
                         {
-                            serverWeights[currentServer] -= GetGroupWeight(ref pd);
+                            serverWeights[currentServer] -= 1;
                         }
 
 

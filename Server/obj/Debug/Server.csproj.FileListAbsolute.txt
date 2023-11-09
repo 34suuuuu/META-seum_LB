@@ -120,3 +120,15 @@
 /Users/suhyun/Desktop/META-seum/Server/bin/Debug/UnityEngine.CoreModule.dll
 /Users/suhyun/Desktop/META-seum/Server/bin/Debug/UnityEngine.CoreModule.pdb
 /Users/suhyun/Desktop/META-seum/Server/bin/Debug/UnityEngine.SharedInternalsModule.pdb
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/Server.exe.config
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/Server.exe
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/Server.pdb
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/UnityEngine.CoreModule.dll
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/UnityEngine.SharedInternalsModule.dll
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/UnityEngine.CoreModule.pdb
+/Users/suhyun/Desktop/META-seum_LB/Server/bin/Debug/UnityEngine.SharedInternalsModule.pdb
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.exe.config
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.csproj.CoreCompileInputs.cache
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.csproj.CopyComplete
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.exe
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.pdb

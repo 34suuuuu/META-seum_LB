@@ -21,6 +21,7 @@ namespace Server
         {
             udp = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             clients = new Dictionary<EndPoint, Client>();
+            //ip = IPAddress.Parse("112.153.144.131");
             ip = IPAddress.Parse("127.0.0.1");
 
             BeginReceive();
@@ -48,6 +49,8 @@ namespace Server
             EndPoint clientEP = new IPEndPoint(IPAddress.Any, 0);
             int bytesRead = udp.EndReceiveFrom(ar, ref clientEP);
             PacketDatagram packet = PacketSerializer.Deserializer(buffer) as PacketDatagram;
+
+            Console.WriteLine($"Sync1: Received packet from {packet.source}:{packet.portNum}");
 
             if (packet != null)
             {
@@ -80,7 +83,7 @@ namespace Server
             packet.playerInfoPacket.id = idAssignIndex++;
             packet.source = remoteEP.Address.ToString();
 
-            //Console.WriteLine("Sync1-pd.source: {0}", packet.source);
+            Console.WriteLine("Sync1-pd.source: {0}", packet.source);
 
             SendPacket(ref packet, remoteEP);
 
@@ -173,10 +176,11 @@ namespace Server
                 clients.Remove(clientEP);
             Broadcast(ref pd);
         }
+
         void Broadcast(ref PacketDatagram pd)
         {
-            foreach (KeyValuePair<EndPoint, Client> p in clients)
-                SendPacket(ref pd, p.Key);
+            foreach (KeyValuePair<EndPoint, Client> client in clients)
+                SendPacket(ref pd, client.Key);
         }
 
         private void SendPacket(ref PacketDatagram pd, EndPoint addr)
