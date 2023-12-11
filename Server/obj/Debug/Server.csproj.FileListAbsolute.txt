@@ -132,3 +132,4 @@
 /Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.csproj.CopyComplete
 /Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.exe
 /Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.pdb
+/Users/suhyun/Desktop/META-seum_LB/Server/obj/Debug/Server.csproj.AssemblyReference.cache

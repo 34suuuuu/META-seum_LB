@@ -1,28 +1,19 @@
 ﻿<Properties StartupConfiguration="{1812F8E3-5505-47CD-B8DA-AC16941061B9}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="UDPRoom1Server.cs">
-    <Files>
-      <File FileName="UDPSync1Server.cs" Line="183" Column="41" IsPinned="True" />
-      <File FileName="UDPSync3Server.cs" Line="69" Column="14" IsPinned="True" />
-      <File FileName="Server.cs" Line="18" Column="29" />
-      <File FileName="UDPRoom1Server.cs" Line="21" Column="48" NotebookId="1" />
-    </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="Server" expanded="True">
-            <Node name="Server" expanded="True">
-              <Node name="UDPRoom1Server.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UDPSyncServer.cs">
+    <Files>
+      <File FileName="UDPSync1Server.cs" Line="16" Column="2" IsPinned="True" />
+      <File FileName="UDPSync2Server.cs" Line="16" Column="2" IsPinned="True" />
+      <File FileName="UDPSync3Server.cs" Line="7" Column="24" IsPinned="True" />
+      <File FileName="Server.cs" />
+      <File FileName="UDPRoomServer.cs" Line="154" Column="46" />
+      <File FileName="UDPSyncServer.cs" Line="78" Column="22" NotebookId="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
